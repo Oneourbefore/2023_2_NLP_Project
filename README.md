@@ -5,6 +5,7 @@ NLP models for Clustering, NER, and Sentiment classification
 ### Dataset
 - 매일 오전 10시에 전날의 뉴스를 수집.
 - 네이버 뉴스의 정치 섹션 뉴스를 수집.
+- DB에 저장시 중복 저장을 피하기 위해 INSERT IGNORE 사용.
 
 ## Clustering
 - 매일 생성된 

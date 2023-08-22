@@ -31,8 +31,13 @@ NLP models for Clustering, Extracting keywords, Connecting clusters, NER, and Se
 ### Extracting keywords per cluster
 - [KPF-SBERT](https://huggingface.co/bongsoo/kpf-sbert-v1.1)로 임베딩
 - 클러스터별 키워드 추출
-- 기사 제목에서 기사 제목과 유사도가 높은 키워드를 추출
-- 키워드의 다양성을 높이기 위해 MMR 기법을 사용
+- v1.0(2023-08-20)
+    - 기사 제목에서 기사 제목과 유사도가 높은 키워드를 추출
+    - 키워드의 다양성을 높이기 위해 MMR 기법을 사용
+- v1.1(2023-08-21)
+    - 불용어 목록 수정 (안해, 않았어야 등)
+- v1.2(2023-08-22)
+    - 불용어 목록 수정 (vs, 안돼 등)
 
 ### Choose best title per cluster
 - 클러스터별 키워드가 가장 많이 포함된 기사의 제목을 클러스터별 대표 기사 제목으로 채택
@@ -51,7 +56,7 @@ NLP models for Clustering, Extracting keywords, Connecting clusters, NER, and Se
 ## Named Entity Recognition
 - model: KPF-BERT-NER,Tokenizer: KPFbert
 - NER 다음 BIO태깅을 사용하여 I-name + I-position인 이름+직책, 기관(OGG)를 사용
-- 자카드 유사도를 사용하여 쓰레쉬홀드를 0.6<i <1.0 으로 설정하고 유사한 딕셔너리 추출
+- 자카드 유사도를 사용하여 임계치를 0.6<i <1.0 으로 설정하고 유사한 딕셔너리 추출
 - 딕셔너리의 쌍이 맞는 경우 추출 ex) 문 대통령 - 문재인 대통령 , 문재인 대통령- 문 대통령 -> 문재인 대통령 - 문대통령 
 - 기사의 특성상 풀네임이 먼저 언급되고 약어가 사용됨 더 긴 글자가 대표하는 단어가 된다고 판단 ex) 윤석열 대통령 - > 윤 대통령  
 - NER의 결과가 제대로 나오지 않은 것 ((ex)재명더불어민주당) summary와 비교 후 ner의 결과가 부정확한 것은 동의어에서 제거

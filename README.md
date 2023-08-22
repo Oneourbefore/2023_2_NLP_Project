@@ -29,13 +29,13 @@ NLP models for Clustering, Extracting keywords, Connecting clusters, NER, and Se
 - HDBScan과 umap 차원 축소를 통해
 
 ### Extracting keywords per cluster
-- KPF-SBERT(https://huggingface.co/bongsoo/kpf-sbert-v1.1).로 임베딩
+- [KPF-SBERT](https://huggingface.co/bongsoo/kpf-sbert-v1.1)로 임베딩
 - 클러스터별 키워드 추출
 - 기사 제목에서 기사 제목과 유사도가 높은 키워드를 추출
 - 키워드의 다양성을 높이기 위해 MMR 기법을 사용
 
 ## Connecting clusters & Issuing a new event
-- KPF-SBERT(https://huggingface.co/bongsoo/kpf-sbert-v1.1).로 임베딩
+- [KPF-SBERT](https://huggingface.co/bongsoo/kpf-sbert-v1.1)로 임베딩
 - 기준 날짜로부터 과거 5일 동안 생성된 클러스터들의 키워드와 비교해서 코사인 유사도가 임계치를 넘으면 과거의 클러스터와 같은 사건으로 묶이도록 함
 - 임계치를 넘지 못할 경우 새로운 사건으로 판단하여 발행함
 

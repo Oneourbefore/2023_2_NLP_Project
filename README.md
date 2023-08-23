@@ -48,7 +48,7 @@ NLP models for Clustering, Extracting keywords, Connecting clusters, NER, and Se
 - 기준 날짜로부터 가장 최근의 20개 클러스터들의 키워드와 비교해서 코사인 유사도가 임계치를 넘으면 과거의 클러스터와 같은 사건이라고 판단하고, 동일 사건으로 묶이도록 함
 - 임계치를 넘지 못할 경우 새로운 사건으로 판단하여 발행함
 
-  ![download.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/597517ad-d2a9-4731-b37c-27495b8c4898/download.png)
+  ![connecting_cluster.png]((https://github.com/WordWarrior-NLP/Kordata-nlp-models/blob/main/connecting_cluster.png))
 * 오늘의 클러스터 (nc_id 71~75)를 과거의 클러스터 (nc_id 51~70)
 
 ### Naming a new event

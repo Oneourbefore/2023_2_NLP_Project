@@ -33,7 +33,7 @@ NLP models for Clustering, Extracting keywords, Connecting clusters, NER, and Se
 - 클러스터별 키워드 추출
 - v1.0(2023-08-20)
     - 기사 제목에서 기사 제목과 유사도가 높은 키워드를 추출
-    - 키워드의 다양성을 높이기 위해 MMR 기법을 사용
+    - 키워드의 다양성을 높이기 위해 MMR (Maximum Marginal Relevance) 기법을 사용
 - v1.1(2023-08-21)
     - 불용어 목록 수정 (안해, 않았어야 등)
 - v1.2(2023-08-22)
@@ -45,8 +45,11 @@ NLP models for Clustering, Extracting keywords, Connecting clusters, NER, and Se
 
 ## Connecting clusters & Issuing a new event
 - [KPF-SBERT](https://huggingface.co/bongsoo/kpf-sbert-v1.1)로 임베딩
-- 기준 날짜로부터 과거 5일 동안 생성된 클러스터들의 키워드와 비교해서 코사인 유사도가 임계치를 넘으면 과거의 클러스터와 같은 사건으로 묶이도록 함
+- 기준 날짜로부터 가장 최근의 20개 클러스터들의 키워드와 비교해서 코사인 유사도가 임계치를 넘으면 과거의 클러스터와 같은 사건이라고 판단하고, 동일 사건으로 묶이도록 함
 - 임계치를 넘지 못할 경우 새로운 사건으로 판단하여 발행함
+
+  ![download.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/597517ad-d2a9-4731-b37c-27495b8c4898/download.png)
+* 오늘의 클러스터 (nc_id 71~75)를 과거의 클러스터 (nc_id 51~70)
 
 ### Naming a new event
 - **Branch Entropy** 이용

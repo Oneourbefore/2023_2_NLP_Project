@@ -57,8 +57,8 @@ NLP models for Clustering, Extracting keywords, Connecting clusters, NER, and Se
 - model: KPF-BERT-NER,Tokenizer: KPFbert
 - NER 다음 BIO태깅을 사용하여 I-name + I-position인 이름+직책, 기관(OGG)를 사용
 - 자카드 유사도를 사용하여 임계치를 0.6<i <1.0 으로 설정하고 유사한 딕셔너리 추출
-- 딕셔너리의 쌍이 맞는 경우 추출 ex) 문 대통령 - 문재인 대통령 , 문재인 대통령- 문 대통령 -> 문재인 대통령 - 문대통령 
+- 딕셔너리의 쌍이 맞는 경우 추출 e.g. 문 대통령 - 문재인 대통령 , 문재인 대통령- 문 대통령 -> 문재인 대통령 - 문대통령 
 - 기사의 특성상 풀네임이 먼저 언급되고 약어가 사용됨 더 긴 글자가 대표하는 단어가 된다고 판단 (최장일치법) e.g. 윤석열 대통령 - > 윤 대통령  
-- NER의 결과가 제대로 나오지 않은 것 ((ex)재명더불어민주당) summary와 비교 후 ner의 결과가 부정확한 것은 동의어에서 제거
+- 토크나이저로 인해서 NER의 결과가 잘못된 것 (e.g. 재명더불어민주당)은 summary에서 실제로 그 개체가 있는지 확인 후 없을 경우 동의어에서 제거
 - 이렇게 전처리를 진행 한 후 날짜별로 클러스별 상위 주체 5개를 뽑은 후, 동의어를 main_word에 대치 후 형식을 맞춰 (word, nc_id, label, `desc`, nid, datetime, main_word) DB에 저장
 

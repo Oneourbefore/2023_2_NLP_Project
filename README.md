@@ -38,6 +38,9 @@ NLP models for Clustering, Extracting keywords, Connecting clusters, NER, and Se
     - 불용어 목록 수정 (안해, 않았어야 등)
 - v1.2(2023-08-22)
     - 불용어 목록 수정 (vs, 안돼 등)
+- v1.3(2023-08-23)
+    - 불용어 목록 수정 (없어 등)
+    - 숫자로만 이루어진 키워드는 제외
 
 ### Choose best title per cluster
 - 클러스터별 키워드가 가장 많이 포함된 기사의 제목을 클러스터별 대표 기사 제목으로 채택

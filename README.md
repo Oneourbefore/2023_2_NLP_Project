@@ -24,10 +24,10 @@ NLP models for Clustering, Extracting keywords, Connecting clusters, NER, and Se
 - photo 컬럼은 8월 10일부터 available.
 
 ## Clustering
-- KPF-SBERT 사용
-- 매일 생성된 
-- HDBScan과 umap 차원 축소를 통해
-
+- [KPF-SBERT](https://huggingface.co/bongsoo/kpf-sbert-v1.1)로 임베딩
+- 매일 수집한 기사의 summary를 SBERT embedding을 통해 벡터화하고, umap을 통해 차원 축소 (n_components = 10)
+- 이후 HDBSCAN으로 클러스터링 (min_cluster_size = 5, min_sample = 3)
+  
 ### Extracting keywords per cluster
 - [KPF-SBERT](https://huggingface.co/bongsoo/kpf-sbert-v1.1)로 임베딩
 - 클러스터별 키워드 추출
@@ -58,7 +58,8 @@ NLP models for Clustering, Extracting keywords, Connecting clusters, NER, and Se
 ### Naming a new event
 - **Branch Entropy** 이용
 - 클러스터로 묶인 기사별 요약에서 명사만 추출하여 사건 이름으로 작성
-- Branch Entropy가 낮은 순으로 3개의 단어를 골라 사건 이름으로 결정
+- 등장 빈도가 높은 순, Branch Entropy 점수가 낮은 순,  문자 길이가 긴 순의 3가지 기준을 차례로 적용한 후, 상위 3개의 단어를 골라 사건 이름으로 선정
+
 
 ## Named Entity Recognition
 - model: KPF-BERT-NER,Tokenizer: KPFbert

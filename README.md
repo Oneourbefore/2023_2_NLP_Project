@@ -28,13 +28,13 @@ NLP models for Clustering, Extracting keywords, Connecting clusters, NER, and Se
 
 ## Clustering
 - 코드 파일: kpfSBERT_clustering.ipynb
-- [KPF-SBERT](https://huggingface.co/bongsoo/kpf-sbert-v1.1)로 임베딩
+- model: [KPF-SBERT](https://huggingface.co/bongsoo/kpf-sbert-v1.1)로 임베딩
 - 매일 수집한 기사의 summary를 SBERT embedding을 통해 벡터화하고, umap을 통해 차원 축소 (n_components = 10)
 - 이후 HDBSCAN으로 클러스터링 (min_cluster_size = 5, min_sample = 3)
   
 ### Extracting keywords per cluster
 - 코드 파일: kpf_keybert.py
-- [KPF-SBERT](https://huggingface.co/bongsoo/kpf-sbert-v1.1)로 임베딩
+- model: [KPF-SBERT](https://huggingface.co/bongsoo/kpf-sbert-v1.1)로 임베딩
 - 클러스터별 키워드 추출
 - v1.0(2023-08-20)
     - 기사 제목에서 기사 제목과 유사도가 높은 키워드를 추출
@@ -59,7 +59,7 @@ NLP models for Clustering, Extracting keywords, Connecting clusters, NER, and Se
 
 ## Connecting clusters & Issuing a new event
 - 코드 파일: ConnectingClusters.ipynb
-- [KPF-SBERT](https://huggingface.co/bongsoo/kpf-sbert-v1.1)로 임베딩
+- model: [KPF-SBERT](https://huggingface.co/bongsoo/kpf-sbert-v1.1)로 임베딩
 - 기준 날짜로부터 가장 최근의 20개 클러스터들의 키워드와 비교해서 코사인 유사도가 임계치를 넘으면 과거의 클러스터와 같은 사건이라고 판단하고, 동일 사건으로 묶이도록 함
 - 임계치를 넘지 못할 경우 새로운 사건으로 판단하여 발행함
 
@@ -80,3 +80,9 @@ NLP models for Clustering, Extracting keywords, Connecting clusters, NER, and Se
 - 토크나이저로 인해서 NER의 결과가 잘못된 것 (e.g. 재명더불어민주당)은 summary에서 실제로 그 개체가 있는지 확인 후 없을 경우 동의어에서 제거
 - 이렇게 전처리를 진행 한 후 날짜별로 클러스별 상위 주체 5개를 뽑은 후, 동의어를 main_word에 대치 후 형식을 맞춰 (word, nc_id, label, `desc`, nid, datetime, main_word) DB에 저장
 
+## Target Sentiment Analysis
+- 코드 파일: SA_dict.ipynb
+- **PMI** 이용
+- 긍정 체언 감성 사전과 부정 체언 감성 사전을 각각 체언 20개로 구축함.
+- NER의 결과인 개체들과 그 개체들이 등장한 문장들을 input으로, PMI 행렬을 구성.
+- PMI 행렬에서 긍/부정 단어와 주체 간의 PMI 수치를 계산하여, 0보다 작을 경우 주체가 뉴스에서 부정적으로 다루어졌음을, 0보다 클 경우 주체가 뉴스에서 긍정적으로 다루어졌음을 표현함.

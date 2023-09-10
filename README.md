@@ -2,6 +2,11 @@
 NLP models for Clustering, Extracting keywords, Connecting clusters, NER, and Sentiment classification
 
 ---
+### Issue
+- 본 프로젝트에서 [Mecab](https://konlpy.org/ko/v0.4.0/install/)는 Google Colab 환경을 기준으로 구동되었음.
+- Mecab는 window 환경에서 구동되지 않음.
+- Mecab가 사용된 코드는 이탤릭체로 표시.
+
 ### Dataset
 #### NaverNewsScraping
 - 코드 파일: naverscrapingnews1.py
@@ -9,7 +14,7 @@ NLP models for Clustering, Extracting keywords, Connecting clusters, NER, and Se
 - 네이버 뉴스의 정치 섹션 뉴스를 수집.
 
 #### PreSum
-- 코드 파일: PreSum.ipynb
+- 코드 파일: *PreSum.ipynb*
 - v1.0:
     - 포토 기사는 수집하지 않는다.
     - **summary**: 기사 본문 중 가장 기사 제목과 유사한 세 문장을 추출하여 요약. SentenceTransformer로 벡터화, cosine similarity 계산
@@ -65,14 +70,14 @@ NLP models for Clustering, Extracting keywords, Connecting clusters, NER, and Se
 - 임계치를 넘지 못할 경우 새로운 사건으로 판단하여 발행함
 
 ### Naming a new event
-- 코드 파일: BranchEntropy.py
+- 코드 파일: BranchingEntropy.py
 - **Branching Entropy** 이용
 - 클러스터로 묶인 기사별 요약에서 명사만 추출하여 사건 이름으로 작성
 - 등장 빈도가 높은 순, Branching Entropy 점수가 낮은 순,  문자 길이가 긴 순의 3가지 기준을 차례로 적용한 후, 상위 3개의 단어를 골라 사건 이름으로 선정
 
 
 ## Named Entity Recognition
-- 코드 파일: 남경현_ner_module.ipynb
+- 코드 파일: *남경현_ner_module.ipynb*
 - model: KPF-BERT-NER,Tokenizer: KPFbert
 - NER 다음 BIO태깅을 사용하여 I-name + I-position인 이름+직책, 기관(OGG)를 사용
 - 자카드 유사도를 사용하여 임계치를 0.6 < i <1.0 으로 설정하고 유사한 딕셔너리 추출
@@ -82,7 +87,7 @@ NLP models for Clustering, Extracting keywords, Connecting clusters, NER, and Se
 - 이렇게 전처리를 진행 한 후 날짜별로 클러스별 상위 주체 5개를 뽑은 후, 동의어를 main_word에 대치 후 형식을 맞춰 (word, nc_id, label, `desc`, nid, datetime, main_word) DB에 저장
 
 ## Target Sentiment Analysis
-- 코드 파일: SA_dict.ipynb
+- 코드 파일: *SA_dict.ipynb*
 - **PMI** 이용
 - 긍정 체언 감성 사전과 부정 체언 감성 사전을 각각 체언 20개로 구축함.
 - NER의 결과인 개체들과 그 개체들이 등장한 문장들을 input으로, PMI 행렬을 구성.

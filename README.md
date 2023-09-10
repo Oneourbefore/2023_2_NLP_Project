@@ -58,6 +58,7 @@ NLP models for Clustering, Extracting keywords, Connecting clusters, NER, and Se
 - 클러스터링 결과를 DB에 저장
 
 ## Connecting clusters & Issuing a new event
+![initial](https://user-images.githubusercontent.com/128810937/262539351-ee5ace24-94fd-4ed0-a565-7e3f510e684e.png)
 - 코드 파일: ConnectingClusters.ipynb
 - model: [KPF-SBERT](https://huggingface.co/bongsoo/kpf-sbert-v1.1)로 임베딩
 - 기준 날짜로부터 가장 최근의 20개 클러스터들의 키워드와 비교해서 코사인 유사도가 임계치를 넘으면 과거의 클러스터와 같은 사건이라고 판단하고, 동일 사건으로 묶이도록 함

@@ -1,4 +1,3 @@
-## dbconfig 사용 예시
 import mysql.connector
 from dbconfig import Settings
 

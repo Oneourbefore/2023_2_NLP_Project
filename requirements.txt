@@ -7,3 +7,9 @@ tqdm == 4.66.1
 import_ipynb ==0.1.4
 kss == 4.5.4
 mysql-connector-python == 8.1.0
+
+# SA
+kiwipiepy == 0.15.2
+pymysql == 1.1.0
+jamo == 0.4.1
+

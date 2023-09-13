@@ -89,7 +89,7 @@ NLP models for Clustering, Extracting keywords, Connecting clusters, NER, and Se
 ## Target Sentiment Analysis
 - 코드 파일: *SA_dict.ipynb*
 - **PMI** 이용
-- 주체명이 형태소 분석되지 않도록 (e.g. 국민의힘 -> 국민, 의, 힘) 모든 주체명을 사용자 정의 사전에 추가해야 함. (mecab.sh 파일 참고)
+- 주체명이 형태소 분석되지 않도록 (e.g. 국민의힘 -> 국민, 의, 힘) 모든 주체명을 사용자 정의 사전에 추가해야 함. (mecab_install.sh 파일 참고)
 - 긍정 체언 감성 사전과 부정 체언 감성 사전을 각각 체언 20개로 구축함.
 - NER의 결과인 개체들과 그 개체들이 등장한 문장들을 input으로, PMI 행렬을 구성.
 - PMI 행렬에서 긍/부정 단어와 주체 간의 PMI 수치를 계산하여, 0보다 작을 경우 주체가 뉴스에서 부정적으로 다루어졌음을, 0보다 클 경우 주체가 뉴스에서 긍정적으로 다루어졌음을 표현함.

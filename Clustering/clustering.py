@@ -20,13 +20,13 @@ from kiwipiepy import Kiwi
 import hdbscan
 import umap
 import pymysql
-import mysql.connector
 import json
 import ast
 import itertools
 import os
 import hanja
 import matplotlib.pyplot as plt
+from dataset import MysqlConnection
 
 #kpfSBERT 모델 로딩
 model_path = "bongsoo/kpf-sbert-v1.1" # sbert
@@ -112,13 +112,6 @@ def best_title(titles: list, cluster_kws: list):
 # 키워드 추출 함수 import
 from kpf_keybert import extract_kws
 
-# DB config
-mysql_config = {
-    'host' :"db-hqb54.pub-cdb.ntruss.com",
-    'user' : "wordwarrior",
-    'password' : "wordwarrior9876!",
-    'database' : "kordata",
-}
 
 """# json데이터 출력 코드"""
 
@@ -145,25 +138,26 @@ dates = ['2023-08-24']
 
 for date in dates:
 
-    connection = pymysql.connect(**mysql_config)
-
+    db_connection = MysqlConnection()
+    conn = db_connection.connection
     try:
         # 데이터를 받아올 SQL 쿼리 작성
         query = "SELECT nid, pid, title, datetime, summary FROM news WHERE DATE(datetime) = %s;"
         # cursor.execute(query, date)  # 적절한 값으로 대체
-        with connection.cursor() as cursor:
+        with conn.cursor() as cursor:
             cursor.execute(query, (date,))
             result = cursor.fetchall()
 
             # Pandas DataFrame 생성
             df = pd.DataFrame(result, columns=['nid', 'pid', 'title', 'datetime', 'summary'])
 
-    except mysql.connector.Error as err:
+    except pymysql.Error as err:
         print(f"Error: {err}")
 
     finally:
         # 연결 종료
-        connection.close()
+        cursor.close()
+        conn.close()
 
     corpus = df[cluster_mode].values.tolist()
     corpus_embeddings = model.encode(corpus, show_progress_bar=True)
@@ -188,9 +182,6 @@ for date in dates:
     # 클러스터 결과 업데이트
     df['cluster'] = tot_df['cluster'].astype(str)
 
-    # tf_idf, count = c_tf_idf(topics[0].Doc.values, m=len(corpus))
-
-    # top_n_words = extract_top_n_words_per_topic(tf_idf, count, topics[0], n=30)
     topic_sizes = extract_topic_sizes(rslt[0])
 
 

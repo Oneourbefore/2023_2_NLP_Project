@@ -15,22 +15,16 @@ with open('../Data/stopwords.txt', 'r') as f:
 
 from kiwipiepy import Kiwi
 import pandas as pd
-import mysql.connector
 import pymysql
 import urllib.request
 from soynlp.word import WordExtractor
 import ast
 from konlpy.tag import Komoran
+from dataset import MysqlConnection
 
 kiwi = Kiwi()
 komoran = Komoran()
 
-mysql_config = {
-    'host' :"db-hqb54.pub-cdb.ntruss.com",
-    'user' : "wordwarrior",
-    'password' : "wordwarrior9876!",
-    'database' : "kordata",
-}
 
 def word_score(score):
     return (score.right_branching_entropy)
@@ -52,10 +46,11 @@ def load_sum_data(nc_id: str):
   테이블 이름이 NewsCluster일 경우 클러스터 id를
   date는 '2023-08-08' 형식으로
   """
-  connection = pymysql.connect(**mysql_config)
+  db_connection = MysqlConnection()
+  conn = db_connection.connection
 
   try:
-    with connection.cursor() as cursor:
+    with conn.cursor() as cursor:
         # 데이터를 받아올 SQL 쿼리 작성
         query = "SELECT summary FROM news WHERE nc_id = %s;"
         cursor.execute(query, (nc_id,))  # 적절한 값으로 대체
@@ -67,12 +62,13 @@ def load_sum_data(nc_id: str):
 
         return results
 
-  except mysql.connector.Error as err:
+  except pymysql.Error as err:
     print(f"Error: {err}")
 
   finally:
       # 연결 종료
-      connection.close()
+      cursor.close()
+      conn.close()
 
 def make_event_name(nc_id: str):
     summary_list = load_sum_data(nc_id)

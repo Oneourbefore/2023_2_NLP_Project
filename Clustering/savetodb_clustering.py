@@ -13,23 +13,16 @@ import mysql.connector
 import json
 from datetime import datetime
 import ast
-
-
-# DB config
-mysql_config = {
-    'host' :"db-hqb54.pub-cdb.ntruss.com",
-    'user' : "wordwarrior",
-    'password' : "wordwarrior9876!",
-    'database' : "kordata",
-    'charset' : 'utf8mb4'
-}
+from dataset import MysqlConnection
 
 # 클러스터링 결과 DB 저장 함수
 def insert_data_to_mysql(data):
+
     conn = None
     try:
         # MySQL 연결
-        conn = mysql.connector.connect(**mysql_config)
+        db_connection = MysqlConnection()
+        conn = db_connection.connection
         cursor = conn.cursor()
 
         values = []
@@ -48,7 +41,7 @@ def insert_data_to_mysql(data):
         # 변경 사항 저장
         conn.commit()
 
-    except mysql.connector.Error as err:
+    except pymysql.Error as err:
         print(f"Error: {err}")
 
     finally:
@@ -61,7 +54,8 @@ def insert_main_title_data_to_mysql(data):
     conn = None
     try:
         # MySQL 연결
-        conn = mysql.connector.connect(**mysql_config)
+        db_connection = MysqlConnection()
+        conn = db_connection.connection
         cursor = conn.cursor()
 
         values = []
@@ -80,7 +74,7 @@ def insert_main_title_data_to_mysql(data):
 
         conn.commit()
 
-    except mysql.connector.Error as err:
+    except pymysql.Error as err:
         print(f"Error: {err}")
 
     finally:
@@ -93,7 +87,8 @@ def insert_cluster_keyword_data_to_mysql(data):
     conn = None
     try:
         # MySQL 연결
-        conn = mysql.connector.connect(**mysql_config)
+        db_connection = MysqlConnection()
+        conn = db_connection.connection
         cursor = conn.cursor()
 
         values = []
@@ -112,7 +107,7 @@ def insert_cluster_keyword_data_to_mysql(data):
 
         conn.commit()
 
-    except mysql.connector.Error as err:
+    except pymysql.Error as err:
         print(f"Error: {err}")
 
     finally:
@@ -138,9 +133,9 @@ if __name__ == "__main__":
 
 """## 대표기사 DB 등록"""
 
-connection = mysql.connector.connect(**mysql_config)
-
-cursor = connection.cursor()
+db_connection = MysqlConnection()
+conn = db_connection.connection
+cursor = conn.cursor()
 
 # SQL 쿼리 실행
 query = "SELECT `nc_id`, `rank`, `datetime` FROM news_cluster"
@@ -172,11 +167,11 @@ for date in dates:
 
 """# cluster_keyword 데이터 DB 저장"""
 
-
-connection = mysql.connector.connect(**mysql_config)
+db_connection = MysqlConnection()
+conn = db_connection.connection
 
 # 커서 생성
-cursor = connection.cursor()
+cursor = conn.cursor()
 
 # SQL 쿼리 실행
 query = "SELECT `nc_id`, `rank`, `datetime` FROM news_cluster"
@@ -219,10 +214,12 @@ for date in dates:
 
 # 기사가 저장된 DB에서 클러스터링된 기사에 대해 클러스터링 번호 update
 
-connection = pymysql.connect(**mysql_config)
+db_connection = MysqlConnection()
+conn = db_connection.connection
+cursor = conn.cursor()
 
 try:
-    with connection.cursor() as cursor:
+    with conn.cursor() as cursor:
         id_dict = {}
         for date in dates:
             # 데이터를 받아올 SQL 쿼리 작성
@@ -244,11 +241,12 @@ try:
                 cursor.execute(query, value)
 
     # 변경 내용을 커밋
-    connection.commit()
+    cursor.commit()
 
-except mysql.connector.Error as err:
+except pymysql.Error as err:
     print(f"Error: {err}")
 
 finally:
     # 연결 종료
-    connection.close()
+    cursor.close()
+    conn.close()

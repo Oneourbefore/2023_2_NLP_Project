@@ -13,6 +13,7 @@ kiwipiepy == 0.15.2
 pymysql == 1.1.0
 jamo == 0.4.1
 
+<<<<<<< HEAD
 # clustering
 sentence-transformers == 2.2.2
 hdbscan == 0.8.33
@@ -20,3 +21,8 @@ umap-learn == 0.5.3
 hanja == 0.13.3
 konlpy == 0.6.0
 soynlp == 0.0.493
+=======
+# kpf-keybert
+hanja==0.13.3
+soynlp==0.0.493
+>>>>>>> a498a0071511f8b018f7fb4fb86366c6f2cad633

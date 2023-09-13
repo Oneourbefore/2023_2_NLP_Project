@@ -20,7 +20,7 @@ import urllib.request
 from soynlp.word import WordExtractor
 import ast
 from konlpy.tag import Komoran
-from dataset import MysqlConnection
+from database import MysqlConnection
 
 kiwi = Kiwi()
 komoran = Komoran()

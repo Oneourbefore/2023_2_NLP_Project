@@ -89,7 +89,7 @@ def extract_kws(titles):
   return kws
 
 ### mysql 연결 example
-from dataset import MysqlConnection # import 구문 있는 곳(상단)에 넣으면 됨
+from database import MysqlConnection # import 구문 있는 곳(상단)에 넣으면 됨
 db_connection = MysqlConnection()
 conn = db_connection.connection
 cursor = conn.cursor()

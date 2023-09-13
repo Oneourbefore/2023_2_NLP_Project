@@ -12,7 +12,7 @@ import pandas as pd
 import json
 from datetime import datetime
 import ast
-from dataset import MysqlConnection
+from database import MysqlConnection
 
 # 클러스터링 결과 DB 저장 함수
 def insert_data_to_mysql(data):

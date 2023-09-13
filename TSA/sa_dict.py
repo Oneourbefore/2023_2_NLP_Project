@@ -1,7 +1,7 @@
 import json
 import re
 import numpy as np
-from dataset import MysqlConnection
+from database import MysqlConnection
 from kiwipiepy import Kiwi
 import math
 import os

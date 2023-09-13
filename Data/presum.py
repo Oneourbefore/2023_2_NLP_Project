@@ -6,7 +6,7 @@ from sentence_transformers import SentenceTransformer
 import torch
 from tqdm import tqdm
 from datetime import datetime, timedelta
-from navernewsscraping1 import 멀티정치기사긁어오기, 멀티사회기사긁어오기, 언론사별사회기사긁어오기, news_to_json
+from scrap_naver_news import 멀티정치기사긁어오기, 멀티사회기사긁어오기, 언론사별사회기사긁어오기, news_to_json
 
 def remove_special_characters(text):
     # 숫자 사이의 소숫점은 유지하고, 모든 점은 삭제

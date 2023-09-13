@@ -26,7 +26,7 @@ import itertools
 import os
 import hanja
 import matplotlib.pyplot as plt
-from dataset import MysqlConnection
+from database import MysqlConnection
 
 #kpfSBERT 모델 로딩
 model_path = "bongsoo/kpf-sbert-v1.1" # sbert

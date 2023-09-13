@@ -29,7 +29,7 @@ sys.path.insert(0, '../')
 import label
 import json
 import torch
-from dataset import MysqlConnection
+from database import MysqlConnection
 import re
 from sklearn.metrics import jaccard_score
 from itertools import combinations

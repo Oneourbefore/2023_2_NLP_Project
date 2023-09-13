@@ -8,12 +8,12 @@ import os
 import subprocess
 from jamo import h2j, j2hcj
 import itertools
-import pandas as pd
 from tqdm import tqdm
 import itertools
 from itertools import combinations
 from collections import defaultdict
 from datetime import datetime, timedelta
+from sentiment_dict import NEG_DICT, POS_DICT
 
 # google colab에서 실행할 경우 아래 함수 실행
 def install_mecab():
@@ -82,9 +82,6 @@ def make_user_dic_csv(morpheme_type, word_list, user_dic_file_name):
     for line in file_data:
       f.write(line)
 
-make_user_dic_csv(morpheme_type="NNP", word_list=entities, user_dic_file_name='user-nnp.csv')
-
-# 이 사이에 sh 파일 실행 부분 추가 필요
 
 # 불용어 목록 불러오기
 def get_stopwords():
@@ -94,13 +91,26 @@ def get_stopwords():
 
     return stopwords
 
+# 새로 정의한 사전 반영
+def apply_userdic():
+    commands = [
+        "bash autogen.sh",
+        "sudo make install",
+        "bash tools/add-userdic.sh",
+        "make clean",
+        "make install"
+    ]
 
-# co-occurrence
+    for cmd in commands:
+        try:
+            subprocess.run(cmd, shell=True, check=True)
+        except subprocess.CalledProcessError as e:
+            print(f"Error executing command: {cmd}")
+            print(e)
+            return
 
-# 긍-부정 사전
-neg_dict = ['고발', '위협', '하자', '논란', '갈등','폭발','충돌','불안','설전','막말','신경전','위법','파행','피해','저격','심각','탄핵','비겁','은폐','비하']
-pos_dict = ['극찬', '화합', '지지', '만회', '신뢰', '복구', '협력', '지원', '영웅',  '평화', '번영', '환영', '찬사', '용기', '찬성', '개선', '청신호', '존경', '도약', '날개']
 
+# co-occurrence를 활용한 문장 감성분석
 # db에서 문장 데이터 불러오기
 def load_data(date: str):
   """
@@ -234,10 +244,10 @@ def analyze_senti(date: str):
               sorted_indices_desc = np.argsort(-co_occur_matrix[i])
 
               for key, value in vocab_index.items():
-                if key in neg_dict:
+                if key in NEG_DICT:
                   neg_score += co_occur_matrix[i][value]
 
-                elif key in pos_dict:
+                elif key in POS_DICT:
                   pos_score += co_occur_matrix[i][value]
 
               polarity = pos_score - neg_score
@@ -275,10 +285,14 @@ def date_range(start, end):
 def get_sent_of_duration(start, end):
     dates = date_range(start, end)
     result = [analyze_senti(date) for date in dates]
-
-    print(result)
     return result
 
 
 ## test
-result = get_sent_of_duration('2023-08-17', '2023-08-22')
+if __name__=="__main__" :
+    install_mecab()
+    entities = get_entity_group_word()
+    make_user_dic_csv(morpheme_type="NNP", word_list=entities, user_dic_file_name='user-nnp.csv')
+    apply_userdic()
+    result = get_sent_of_duration('2023-08-17', '2023-08-22')
+    print(result)

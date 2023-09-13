@@ -77,7 +77,7 @@ NLP models for Clustering, Extracting keywords, Connecting clusters, NER, and Se
 
 
 ## Named Entity Recognition
-- 코드 파일: *남경현_ner_module.ipynb*
+- 코드 파일: *ner_module.ipynb*
 - model: KPF-BERT-NER,Tokenizer: KPFbert
 - NER 다음 BIO태깅을 사용하여 I-name + I-position인 이름+직책, 기관(OGG)를 사용
 - 자카드 유사도를 사용하여 임계치를 0.6 < i <1.0 으로 설정하고 유사한 딕셔너리 추출

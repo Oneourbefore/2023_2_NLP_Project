@@ -1,8 +1,7 @@
 import json
 import re
 import numpy as np
-import pymysql
-import mysql.connector
+
 from kiwipiepy import Kiwi
 import math
 import os
@@ -45,4 +44,13 @@ def get_jongsung_TF(sample_text):
     return jongsung_tf
 
 
-### mysql 연결 부분부터 작성 필요
+### mysql 연결 example
+from dataset import MysqlConnection # import 구문 있는 곳(상단)에 넣으면 됨
+db_connection = MysqlConnection()
+conn = db_connection.connection
+cursor = conn.cursor()
+cursor.execute("")
+result = cursor.fetchall()
+
+cursor.close()
+conn.close()

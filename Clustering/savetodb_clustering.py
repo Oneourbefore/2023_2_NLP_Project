@@ -9,7 +9,6 @@ Original file is located at
 
 import pymysql
 import pandas as pd
-import mysql.connector
 import json
 from datetime import datetime
 import ast

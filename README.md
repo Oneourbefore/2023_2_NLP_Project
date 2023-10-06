@@ -1,4 +1,4 @@
-# Kordata-nlp-models
+# 2023_2_NLP_Project
 NLP models for Clustering, Extracting keywords, Connecting clusters, NER, and Sentiment classification
 
 ---
